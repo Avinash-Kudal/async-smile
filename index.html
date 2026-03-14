@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Async Smile</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:linear-gradient(135deg,#ff758c,#ff7eb3);
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+text-align:center;
+}
+
+.container{
+background:rgba(255,255,255,0.15);
+padding:40px;
+border-radius:15px;
+backdrop-filter: blur(10px);
+}
+
+input{
+padding:10px;
+font-size:16px;
+border-radius:8px;
+border:none;
+margin-top:10px;
+}
+
+button{
+padding:10px 20px;
+font-size:16px;
+border:none;
+border-radius:8px;
+background:white;
+color:#ff4d6d;
+cursor:pointer;
+margin-top:10px;
+}
+
+.hidden{
+display:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- GAME PAGE -->
+<div id="gamePage" class="container">
+
+<h2>Mini Game</h2>
+
+<p>Enter your favourite nickname</p>
+
+<input type="text" id="nameInput" placeholder="Type here">
+
+<br>
+
+<button onclick="checkName()">Submit</button>
+
+<p id="error"></p>
+
+</div>
+
+<!-- MAIN PAGE -->
+<div id="mainPage" class="container hidden">
+
+<h1>Hello Beautiful ❤️</h1>
+
+<p>You unlocked my special page.</p>
+
+<p>You are the reason behind my async smile.</p>
+
+<button onclick="showLove()">Click me</button>
+
+</div>
+
+
+<script>
+
+const correctName = "baby";   // change this
+
+function checkName(){
+
+let userInput = document.getElementById("nameInput").value.toLowerCase();
+
+if(userInput === correctName){
+
+document.getElementById("gamePage").style.display="none";
+document.getElementById("mainPage").classList.remove("hidden");
+
+}
+else{
+
+document.getElementById("error").innerText="Wrong answer. Try again 😉";
+
+}
+
+}
+
+function showLove(){
+
+alert("You just executed the function: makeAvinashHappy() ❤️");
+
+}
+
+</script>
+
+</body>
+</html>
