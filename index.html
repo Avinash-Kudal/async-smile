@@ -1,97 +1,224 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <title>Async Smile</title>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 <style>
 
 body{
-margin:0;
-font-family:Arial;
-background:linear-gradient(135deg,#ff758c,#ff7eb3);
+background: linear-gradient(135deg,#ff758c,#ff7eb3);
 height:100vh;
 display:flex;
 align-items:center;
 justify-content:center;
+font-family:Arial;
+overflow:hidden;
 color:white;
 text-align:center;
 }
 
-.container{
-background:rgba(255,255,255,0.15);
-padding:40px;
+.card{
 border-radius:15px;
-backdrop-filter: blur(10px);
+color:#333;
 }
 
-input{
-padding:10px;
-font-size:16px;
-border-radius:8px;
-border:none;
-margin-top:10px;
+/* floating hearts */
+
+.hearts{
+position:absolute;
+font-size:28px;
+animation: float 6s infinite ease-in-out;
 }
 
-button{
-padding:10px 20px;
-font-size:16px;
-border:none;
-border-radius:8px;
-background:white;
-color:#ff4d6d;
-cursor:pointer;
-margin-top:10px;
+@keyframes float{
+0%{transform:translateY(0px);}
+50%{transform:translateY(-40px);}
+100%{transform:translateY(0px);}
+}
+
+/* rain animation */
+
+.rain{
+position:fixed;
+top:-50px;
+font-size:30px;
+animation: fall 4s linear infinite;
+}
+
+@keyframes fall{
+0%{transform:translateY(-50px);}
+100%{transform:translateY(100vh);}
 }
 
 .hidden{
 display:none;
 }
-
+.modal h1{
+animation: heartbeat 1s infinite;
+}
+.modal-content{
+background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+border-radius:20px;
+color:#333;
+}
+@keyframes heartbeat{
+0%{transform:scale(1);}
+25%{transform:scale(1.2);}
+40%{transform:scale(1);}
+60%{transform:scale(1.2);}
+100%{transform:scale(1);}
+}
 </style>
+
 </head>
 
 <body>
 
+
+<!-- FLOATING HEARTS -->
+
+<div class="hearts" style="top:10%; left:10%">❤️</div>
+<div class="hearts" style="top:20%; left:80%">💖</div>
+<div class="hearts" style="top:70%; left:15%">💗</div>
+<div class="hearts" style="top:60%; left:90%">💘</div>
+<div class="hearts" style="top:40%; left:5%">💞</div>
+
+
 <!-- GAME PAGE -->
-<div id="gamePage" class="container">
 
-<h2>Mini Game</h2>
+<div id="gamePage">
 
-<p>Enter your favourite nickname</p>
+<div class="card p-4 shadow-lg">
 
-<input type="text" id="nameInput" placeholder="Type here">
+<h3>Mini Game 🎮</h3>
+
+<p>Enter the nickname I call you</p>
+
+<input type="text" id="nameInput" class="form-control">
 
 <br>
 
-<button onclick="checkName()">Submit</button>
+<button class="btn btn-danger" onclick="checkName()">
+Unlock
+</button>
 
-<p id="error"></p>
+<p id="error" class="text-danger mt-2"></p>
 
 </div>
 
+</div>
+
+
+
 <!-- MAIN PAGE -->
-<div id="mainPage" class="container hidden">
 
-<h1>Hello Beautiful ❤️</h1>
+<div id="mainPage" class="hidden">
 
-<p>You unlocked my special page.</p>
+<div class="card p-5 shadow-lg">
 
-<p>You are the reason behind my async smile.</p>
+<h2>Hello Shembade ❤️</h2>
 
-<button onclick="showLove()">Click me</button>
+<p>You unlocked my secret page.</p>
+<p>irritating chya duniye madhe tuz welcome....😜</p>
+<hr>
 
+<p>
+
+<i class="fas fa-bug text-danger"></i>
+
+<b>I am a certified irritating kutra..but for you only</b>
+
+</p>
+
+<p>
+
+✔ I am harami but for you only 😜  
+<br>
+✔ Sometimes I behave like 3 year old baby   
+<br>
+✔ I irritate you randomly 😜 but i like that 😅
+
+</p>
+
+<p>
+
+But somehow you still haven't forgot or delete me.
+
+</p>
+
+<button class="btn btn-danger mt-3" onclick="showQuestion()">
+
+Continue
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- DATE QUESTION PAGE -->
+
+<div id="datePage" class="hidden">
+
+<div class="card p-5 shadow-lg">
+
+<h3>One important question...</h3>
+
+<h2>Will you go on a date with me? ❤️</h2>
+
+<button class="btn btn-success m-3" onclick="yes()">
+Yes 💖
+</button>
+
+<button class="btn btn-secondary m-3" id="noBtn" onmouseover="moveNo()">
+No 😅
+</button>
+
+</div>
+
+</div>
+<!-- LOVE POPUP MODAL -->
+
+<div class="modal fade" id="loveModal" tabindex="-1">
+<div class="modal-dialog modal-dialog-centered">
+<div class="modal-content text-center p-4">
+
+<h1 style="font-size:180px">❤️</h1>
+
+<h4>Yay Shembade!</h4>
+
+<p>
+You just made the best decision today 😜  
+Now we officially have a date.  
+Prepare for food, laughs and irritation.
+</p>
+
+<button class="btn btn-danger" data-dismiss="modal">
+Close
+</button>
+
+</div>
+</div>
 </div>
 
 
 <script>
 
-const correctName = "baby";   // change this
+const correctName="shembade";
+
 
 function checkName(){
 
-let userInput = document.getElementById("nameInput").value.toLowerCase();
+let input=document.getElementById("nameInput").value.toLowerCase();
 
-if(userInput === correctName){
+if(input===correctName){
 
 document.getElementById("gamePage").style.display="none";
 document.getElementById("mainPage").classList.remove("hidden");
@@ -99,19 +226,70 @@ document.getElementById("mainPage").classList.remove("hidden");
 }
 else{
 
-document.getElementById("error").innerText="Wrong answer. Try again 😉";
+document.getElementById("error").innerText="Wrong answer 😜 Try again";
 
 }
 
 }
 
-function showLove(){
 
-alert("You just executed the function: makeAvinashHappy() ❤️");
+
+function showQuestion(){
+
+document.getElementById("mainPage").style.display="none";
+document.getElementById("datePage").classList.remove("hidden");
 
 }
 
+
+
+function moveNo(){
+
+let button=document.getElementById("noBtn");
+
+button.style.position="absolute";
+button.style.top=Math.random()*400+"px";
+button.style.left=Math.random()*400+"px";
+
+}
+
+
+
+function yes(){
+
+// start rain first
+
+for(let i=0;i<60;i++){
+
+let rain=document.createElement("div");
+
+rain.classList.add("rain");
+
+let items=["❤️","🌸","💖","🌹"];
+
+rain.innerHTML=items[Math.floor(Math.random()*items.length)];
+
+rain.style.left=Math.random()*100+"vw";
+
+rain.style.animationDuration=(Math.random()*3+2)+"s";
+
+document.body.appendChild(rain);
+
+}
+
+// show popup after slight delay
+
+setTimeout(()=>{
+
+$('#loveModal').modal('show');
+
+},500);
+
+}
 </script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
