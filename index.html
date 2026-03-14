@@ -200,8 +200,8 @@ Now we officially have a date.
 Prepare for food, laughs and irritation.
 </p>
 
-<button class="btn btn-danger" data-dismiss="modal">
-Close
+<button class="btn btn-success" onclick="openWhatsapp()">
+Click here to plan our date together 💬
 </button>
 
 </div>
@@ -232,7 +232,17 @@ document.getElementById("error").innerText="Wrong answer 😜 Try again";
 
 }
 
+function openWhatsapp(){
 
+let number = "919881757127"; // your number
+
+let message = "Yes 😄 I saw your async-smile website. Let's plan our date together ❤️";
+
+let url = "https://wa.me/" + number + "?text=" + encodeURIComponent(message);
+
+window.location.href = url;
+
+}
 
 function showQuestion(){
 
