@@ -73,6 +73,28 @@ color:#333;
 60%{transform:scale(1.2);}
 100%{transform:scale(1);}
 }
+.kiss{
+position:fixed;
+font-size:40px;
+animation: flykiss 2s ease-out forwards;
+pointer-events:none;
+}
+
+@keyframes flykiss{
+0%{
+transform:translateY(0) scale(0.5);
+opacity:1;
+}
+50%{
+transform:translateY(-120px) scale(1.2);
+opacity:1;
+}
+100%{
+transform:translateY(-250px) scale(1.6);
+opacity:0;
+}
+}
+
 </style>
 
 </head>
@@ -213,17 +235,24 @@ Click here to plan our date together 💬
 
 <script>
 
-const correctName="shembade";
-
+const correctName = "shembade";
+const sortName = "sorrybaby";
 
 function checkName(){
 
 let input=document.getElementById("nameInput").value.toLowerCase();
 
 if(input===correctName){
-document.getElementById("error").innerText="Sorry tumache bhandan zalel ahe te sort kara pahile😜 Mg Surprise";
-// document.getElementById("gamePage").style.display="none";
-// document.getElementById("mainPage").classList.remove("hidden");
+
+document.getElementById("error").innerHTML =
+'Sorry tumache bhandan zalel ahe te sort kara pahile 😜 Mg Surprise.<br><br> ' +
+'ani sort karanya sathi <b style="color:#ff0040;cursor:pointer" onclick="sendSorry()">Click here</b>';
+
+}
+else if(input===sortName){
+
+document.getElementById("gamePage").style.display="none";
+document.getElementById("mainPage").classList.remove("hidden");
 
 }
 else{
@@ -231,6 +260,39 @@ else{
 document.getElementById("error").innerText="Wrong answer 😜 Try again";
 
 }
+
+}
+function flyingKiss(){
+
+for(let i=0;i<16;i++){
+
+let kiss=document.createElement("div");
+
+kiss.classList.add("kiss");
+
+kiss.innerHTML="💋";
+
+kiss.style.left=Math.random()*80+"vw";
+kiss.style.bottom="50px";
+
+document.body.appendChild(kiss);
+
+setTimeout(()=>{
+kiss.remove();
+},3000);
+
+}
+
+}
+function sendSorry(){
+flyingKiss()
+let number = "919881757127";
+
+let message = "I am really sorry meri jaan 💋,please tell me na...";
+
+let url = "https://wa.me/" + number + "?text=" + encodeURIComponent(message);
+
+window.location.href = url;
 
 }
 
